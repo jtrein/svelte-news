@@ -1,17 +1,16 @@
 <script>
+  import {searchText} from './store';
   import NewsList from './NewsList.svelte';
+  import SearchInput from './SearchInput.svelte';
 </script>
 
-<style>
-  h1 {
-    color: #333;
-  }
-</style>
+<div class="app-container">
+  <h1>
+    Latest News for{' '}
+    <span aria-label="Flag of the United Kingdom" role="img">🇬🇧</span>
+    <span class="visually-hidden"> the United Kingdom</span>
+  </h1>
 
-<h1>
-  Latest News for{' '}
-  <span aria-label="Flag of the United Kingdom" role="img">🇬🇧</span>
-  <span class="visually-hidden"> the United Kingdom</span>
-</h1>
-
-<NewsList />
+  <SearchInput />
+  <NewsList />
+</div>
