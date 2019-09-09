@@ -28,8 +28,10 @@
     "build": "rollup -c",
     "autobuild": "rollup -c -w",
     "dev": "run-p start:dev autobuild",
-    "start": "sirv public --single",
+    "serve:client": "sirv public --single",
+    "start": "npm run build && run-p serve:client start:server",
+    "start:server": "node server/server.js",
     "start:dev": "sirv public --single --dev",
-    "test": "./node_modules/.bin/jest --verbose"
+    "test": "jest --verbose"
   }
 }
