@@ -11,4 +11,4 @@ export const currentArticle = writable({
   title: '',
 });
 
-export const searchText = writable('');
+export const searchText = writable();
