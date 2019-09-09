@@ -1,28 +1,24 @@
 <script>
-  import { Link, navigate } from "svelte-routing";
-  import {beforeUpdate, onMount} from 'svelte';
+  import {Link, navigate} from "svelte-routing";
+  import {onDestroy, onMount} from 'svelte';
   import {articles, currentArticle, searchText} from './store';
 
-  let fetchedArticles = [];
+  const ERROR_GENERIC = 'Something went awry while getting your news 😿.';
+  const serverURL = 'http://localhost:3000';
   let errorMessage = '';
-  let searchValue = '';
-  let searching = true;
+  let searching = false;
 
   onMount(async () => {
-    if (searchText && fetchedArticles.length) return;
-    
+    if ($searchText !== undefined) return;
+
     getArticles();
   });
 
   // subscribe to store changes of `searchText`
-  searchText.subscribe(value => {
-    getArticles(value);
+  const searchTextUnsubscribe = searchText.subscribe(value => {
+    if ($searchText === undefined) return;
 
-    searchValue = value;
-  });
-  
-  articles.subscribe(value => {
-    fetchedArticles = value;
+    getArticles(value);
   });
   
   async function getArticles(search = '') {
@@ -30,14 +26,22 @@
       searching = true;
 
       const possibleSearchParam = search ? `?search=${encodeURIComponent(search.toLowerCase())}` : '';
-      const response = await fetch(`http://localhost:3000/latest/gb${possibleSearchParam}`);
-      const articlesJSON = await response.json();
+      const response = await fetch(`${serverURL}/latest/gb${possibleSearchParam}`);
+      const responseJSON = await response.json();
+
+      // fetch doesn't throw on request errors
+      if (responseJSON.errorMessage) {
+        throw responseJSON; 
+      }
 
       // set store value for `articles`
-      articles.set(articlesJSON);
-    } catch (error) {      
+      articles.set(responseJSON);
+    } catch (error) {
       if (error) {
-        errorMessage = 'Something went awry while getting your news 😿.';
+        errorMessage = ERROR_GENERIC;
+        
+        // should be logged somehow
+        console.error(`Server:`, error.errorMessage || 'Something went wrong.');
       }
     } finally {
       searching = false;
@@ -46,7 +50,7 @@
 
   function handleSetCurrentArticle(index) {
     return function () {
-      const article = fetchedArticles[index - 1];
+      const article = $articles[index - 1];
 
       // set `currentArticle` in store
       currentArticle.set({
@@ -58,26 +62,30 @@
         title: article.title,
       });
 
-      navigate(`/${index}`);
+      navigate(`${index}`);
     };
   }
+
+  onDestroy(() => {
+    searchTextUnsubscribe();
+  });
 </script>
 
 {#if searching && !errorMessage}
   <p class="progress-text">Getting the latest news&hellip;</p>
 {/if}
 
-{#if !searching && !fetchedArticles.length}
-  <p>No articles were found matching "{searchValue}"</p>
+{#if $searchText && !searching && !$articles.length}
+  <p>No articles were found matching "{$searchText}"</p>
 {/if}
 
 {#if errorMessage}
   <p class="error__text">{errorMessage}</p>
 {/if}
 
-{#if fetchedArticles.length}
+{#if $articles.length}
   <ul>
-    {#each fetchedArticles as {description, publishedAt, title}, index}
+    {#each $articles as {description, publishedAt, title}, index}
       <li class="article__row">
         <Link
           to={(index + 1).toString()}
