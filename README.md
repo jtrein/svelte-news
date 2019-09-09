@@ -17,7 +17,7 @@ npm start
 
 * Front-end: `svelte`, `svelte-routing`
 * Back-end: `node`, `express`
-* Testing: `testing-library/svelte`
+* Testing: `testing-library/svelte`, `jest`
 
 ### Running tests
 
