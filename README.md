@@ -5,7 +5,11 @@ A fun little app built in Svelte! See the latest UK news, and search by keyword.
 ### Running the app locally
 
 ```
-git clone
+git clone git@github.com:jtrein/svelte-news.git
+cd svelte-news/server
+npm i
+cd ../
+npm i
 npm start
 ```
 
