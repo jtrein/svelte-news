@@ -1,5 +1,6 @@
 const path = require("path");
 const express = require("express");
+const cors = require('cors');
 const fetch = require("node-fetch");
 
 const server = express();
@@ -23,6 +24,9 @@ function handleInvalidCountryParam(res) {
     errorType: 'MISSING_REQ_DATA'
   });
 }
+
+// enable CORS
+server.use(cors());
 
 server.get("/latest/:country", async function(req, res) {
   const {country} = req.params;
