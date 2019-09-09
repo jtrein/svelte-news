@@ -27,7 +27,7 @@ npm test
 
 ### How the app works
 
-The app is divided into components, but the workhorse is `NewsList.svelte`.
+The app is divided into components, but the workhorse is `NewsList.svelte`. I chose Svelte because I wanted to learn it. Svelte has taken a bit more time to get right in the sense that I needed to unlearn React habits, but it is an absolute joy to code in. I will be reaching for it in the future.
 
 1. On mount the app calls the server to request ~20 articles
 2. Routing is decided within the client (no SSR). There are 2 paths:
