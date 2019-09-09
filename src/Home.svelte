@@ -5,7 +5,7 @@
 </script>
 
 <h1>
-  Latest News for{' '}
+  Latest news for{' '}
   <span aria-label="Flag of the United Kingdom" role="img">🇬🇧</span>
   <span class="visually-hidden"> the United Kingdom</span>
 </h1>
