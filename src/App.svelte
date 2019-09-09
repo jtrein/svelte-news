@@ -1,16 +1,16 @@
 <script>
-  import {searchText} from './store';
-  import NewsList from './NewsList.svelte';
-  import SearchInput from './SearchInput.svelte';
+  import {Route, Router} from 'svelte-routing'
+  import Article from './Article.svelte';
+  import Home from './Home.svelte';
 </script>
 
-<div class="app-container">
-  <h1>
-    Latest News for{' '}
-    <span aria-label="Flag of the United Kingdom" role="img">🇬🇧</span>
-    <span class="visually-hidden"> the United Kingdom</span>
-  </h1>
-
-  <SearchInput />
-  <NewsList />
-</div>
+<Router url="">
+  <div class="app-container">
+    <Route path=":articleID">
+      <Article />
+    </Route>
+    <Route path="/">
+      <Home />
+    </Route>
+  </div>
+</Router>
