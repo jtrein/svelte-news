@@ -10,7 +10,7 @@ cd svelte-news/server
 npm i
 cd ../
 npm i
-npm start
+NEWS_API_KEY=[SECRET!] npm start
 ```
 
 ### Technologies used
