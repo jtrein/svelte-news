@@ -3,10 +3,6 @@
 
   let searchValue = '';
 
-  searchText.subscribe(value => {
-    searchValue = value;
-  });
-
   function handleEnter(event) {
     if (event.code === 'Enter') {
       handleSearch(searchValue);
@@ -30,6 +26,6 @@
     on:keydown={handleEnter}
     on:input={handleValueChange}
     type="text"
-    value={searchValue} />
+    value={$searchText || ''} />
   <button on:click={handleSearch}>Go</button>
 </label>
