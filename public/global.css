@@ -62,12 +62,24 @@ button:focus {
     align-items: center;
 	display: flex;
     flex-direction: column;
-    margin: 0 auto;
+    margin: 1.5rem auto 3rem;
     max-width: 40.625em;
 }
 
-.newslist__row {
+.article__row {
+	font-size: 1.5rem;
+    font-weight: 500;
 	margin-bottom: 1.5rem;
+}
+
+.link--border {
+	border: 2px solid #0450a0;
+    border-radius: 3em;
+    padding: .5rem 1rem;
+}
+
+.text {
+	font-size: 1.25rem;
 }
 
 .error__text {
