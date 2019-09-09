@@ -30,9 +30,9 @@ npm test
 The app is divided into components, but the workhorse is `NewsList.svelte`.
 
 1. On mount the app calls the server to request ~20 articles
-2. Routing is for convenience if using a browser's back/forward buttons. It is decided within the FE (no SSR). There are 2 paths:
-  - Home
-  - An arbitrary article page (e.g. /17). That I could see, there isn't a clean, predictable way to get a unique page slug with the data we are given.
+2. Routing is decided within the client (no SSR). There are 2 paths:
+    - Home
+    - An arbitrary article page (e.g. /17). That I could see, there isn't a clean, predictable way to get a unique page slug with the data we are given.
 3. When going back to the Home page from an article, cached data is shown while new data is fetched in the background.
 4. Searching is by keywords and can be done by pressing "Go" or the `Enter` key. 
 5. Search input is remembered if a value is set.
